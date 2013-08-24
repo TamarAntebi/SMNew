@@ -449,11 +449,14 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 					// TODO: we just take the first result for the time being
 					// TODO: confidence scores support is in API 14
 					String result = matches.iterator().next();
+					
+					//
 					int Updist = Utils.phraseDistance("up", result);
 					int Downdist = Utils.phraseDistance("down", result);
 					int leftDist= Utils.phraseDistance("left", result);
 					int RigthDist=Utils.phraseDistance("right", result);
 					String dir=min(Updist,Downdist,leftDist, RigthDist);
+					//
 					if (dir==null){
 						dir=String.valueOf(Updist)+String.valueOf("/"+Downdist)+String.valueOf("/"+leftDist)+String.valueOf("/"+RigthDist);
 					}

@@ -31,6 +31,7 @@ public class Utils {
 	 * Originates from: http://rosettacode.org/wiki/Levenshtein_distance#Java
 	 */
 	private static int computeDistance(String s1, String s2) {
+
 		int[] costs = new int[s2.length() + 1];
 		for (int i = 0; i <= s1.length(); i++) {
 			int lastValue = i;
@@ -53,7 +54,81 @@ public class Utils {
 		return costs[s2.length()];
 	}
 
-
+	private static String computeDistances(String s1) {
+		String up="up";
+		String down="down";
+		String left="left";
+		String right="right";
+		
+		
+		int[] costsUp = new int[up.length() + 1];
+		int[] costsD = new int[down.length() + 1];
+		int[] costsL = new int[left.length() + 1];
+		int[] costsR = new int[right.length() + 1];
+		for (int i = 0; i <= s1.length(); i++) {
+			int lastValueU = i;
+			int lastValueD = i;
+			int lastValueL = i;
+			int lastValueR = i;
+			for (int j = 0; j <= up.length(); j++) {
+				if (i == 0)
+					costsUp[j] = j;
+				else {
+					if (j > 0) {
+						int newValue = costsUp[j - 1];
+						if (s1.charAt(i - 1) != up.charAt(j - 1))
+							newValue = Math.min(Math.min(newValue, lastValueU), costsUp[j]) + 1;
+						costsUp[j - 1] = lastValueU;
+						lastValueU = newValue;
+					}
+				}
+			}
+			if (i > 0){
+				costsUp[up.length()] = lastValueU;}
+			
+			if(costsUp[up.length()]==0){
+				return "up";
+			}
+			for (int k = 0; k <= down.length(); k++) {
+				if (i == 0)
+					costsD[k] = k;
+				else {
+					if (k > 0) {
+						int newValue = costsD[k - 1];
+						if (s1.charAt(i - 1) != down.charAt(k - 1))
+							newValue = Math.min(Math.min(newValue, lastValueD), costsD[k]) + 1;
+						costsD[k - 1] = lastValueD;
+						lastValueD = newValue;
+					}
+				}
+			}
+			if (i > 0){
+				costsD[down.length()] = lastValueD;}
+			if(costsD[down.length()] ==0){
+				return "down";
+			}
+			
+		}
+		return min(costsUp[up.length()],costsD[down.length()],10,10);
+	}
+	private static String min(int updist, int downdist, int leftDist,
+			int rigthDist) {
+		if(updist<downdist&& updist<leftDist&& updist< rigthDist&& updist<4){
+			return "up";
+		}
+		if(downdist<updist&& downdist<leftDist&& downdist< rigthDist&& downdist<4){
+			return "down";
+		}
+		if(leftDist<downdist&& leftDist<updist&& leftDist< rigthDist&& leftDist<4){
+			return "left";
+		}
+		if(rigthDist<downdist&& rigthDist<leftDist&& rigthDist< updist&& rigthDist<4){
+			return "right";
+		}
+		
+		
+		return null;
+	}
 	// TODO: add restriction by timestamp
 	// TODO: SELECT Lang,AVG(Dist) FROM Babble GROUP BY Lang
 	public static Map<String, Double> getLangToDist(Context context) {
