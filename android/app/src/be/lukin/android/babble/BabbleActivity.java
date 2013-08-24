@@ -43,7 +43,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	// The input sentences are short and using the app should be snappy so
 	// we don't want to spend too much on a single utterance.
 	// TODO: maybe allow it to be configured in the settings
-	public static final int LISTENING_TIMEOUT = 4000;
+	public static final int LISTENING_TIMEOUT = 2000;
 
 	private State mState = State.INIT;
 
@@ -171,9 +171,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			startActivity(new Intent(this, PhrasesActivity.class));
 			return true;
 		case R.id.menuLanguagesPlot:
-			LanguagesBarChart lbc = new LanguagesBarChart();
-			Intent intent = lbc.execute(this);
-			startActivity(intent);
+//			LanguagesBarChart lbc = new LanguagesBarChart();
+//			Intent intent = lbc.execute(this);
+//			startActivity(intent);
 			return true;
 		case R.id.menuMainSettings:
 			startActivity(new Intent(this, SettingsActivity.class));
@@ -450,15 +450,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 					// TODO: confidence scores support is in API 14
 					String result = matches.iterator().next();
 					
-					//
-					int Updist = Utils.phraseDistance("up", result);
-					int Downdist = Utils.phraseDistance("down", result);
-					int leftDist= Utils.phraseDistance("left", result);
-					int RigthDist=Utils.phraseDistance("right", result);
-					String dir=min(Updist,Downdist,leftDist, RigthDist);
-					//
+					String dir=Utils.phraseDistances(result);
 					if (dir==null){
-						dir=String.valueOf(Updist)+String.valueOf("/"+Downdist)+String.valueOf("/"+leftDist)+String.valueOf("/"+RigthDist);
+						dir="null";
 					}
 					mTvFeedback.setText( "going "+dir);
 					mTvFeedback.setVisibility(View.VISIBLE);
@@ -495,24 +489,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	
 
-	private String min(int updist, int downdist, int leftDist,
-			int rigthDist) {
-		if(updist<downdist&& updist<leftDist&& updist< rigthDist&& updist<4){
-			return "up";
-		}
-		if(downdist<updist&& downdist<leftDist&& downdist< rigthDist&& downdist<4){
-			return "down";
-		}
-		if(leftDist<downdist&& leftDist<updist&& leftDist< rigthDist&& leftDist<4){
-			return "left";
-		}
-		if(rigthDist<downdist&& rigthDist<leftDist&& rigthDist< updist&& rigthDist<4){
-			return "right";
-		}
-		
-		
-		return null;
-	}
 	private class DownloadSentencesTask extends AsyncTask<Void, Integer, List<Sentence>> {
 		protected List<Sentence> doInBackground(Void... arg0) {
 			if (mPrefs.getBoolean(getString(R.string.keyDemoMode), mRes.getBoolean(R.bool.defaultDemoMode))) {

@@ -19,13 +19,12 @@ public class Utils {
 	private static final String PUNCT = "\\p{Punct}";
 	private static final String SPACE = "\\p{Space}";
 
-	// TODO: scale by string lengths
-	public static int phraseDistance(String s1, String s2) {
-		s1 = s1.toLowerCase().replaceAll(SPACE, "").replaceAll(PUNCT, "");
-		s2 = s2.toLowerCase().replaceAll(SPACE, "").replaceAll(PUNCT, "");
-		return computeDistance(s1, s2);
-	}
 
+	
+		public static String phraseDistances(String s1) {
+			s1 = s1.toLowerCase().replaceAll(SPACE, "").replaceAll(PUNCT, "");
+			return computeDistances(s1);
+		}
 
 	/**
 	 * Originates from: http://rosettacode.org/wiki/Levenshtein_distance#Java
@@ -107,9 +106,44 @@ public class Utils {
 			if(costsD[down.length()] ==0){
 				return "down";
 			}
-			
+			for (int g = 0; g <= left.length(); g++) {
+				if (i == 0)
+					costsL[g] = g;
+				else {
+					if (g > 0) {
+						int newValue = costsL[g - 1];
+						if (s1.charAt(i - 1) != left.charAt(g - 1))
+							newValue = Math.min(Math.min(newValue, lastValueL), costsL[g]) + 1;
+						costsL[g - 1] = lastValueL;
+						lastValueL = newValue;
+					}
+				}
+			}
+			if (i > 0){
+				costsL[left.length()] = lastValueL;}
+			if(costsL[left.length()] ==0){
+				return "left";
+			}
+			for (int s = 0; s <= right.length(); s++) {
+				if (i == 0)
+					costsR[s] = s;
+				else {
+					if (s > 0) {
+						int newValue = costsR[s - 1];
+						if (s1.charAt(i - 1) != right.charAt(s - 1))
+							newValue = Math.min(Math.min(newValue, lastValueR), costsR[s]) + 1;
+						costsR[s - 1] = lastValueR;
+						lastValueR = newValue;
+					}
+				}
+			}
+			if (i > 0){
+				costsR[right.length()] = lastValueR;}
+			if(costsR[right.length()] ==0){
+				return "left";
+			}
 		}
-		return min(costsUp[up.length()],costsD[down.length()],10,10);
+		return min(costsUp[up.length()],costsD[down.length()],costsL[left.length()],costsR[right.length()]);
 	}
 	private static String min(int updist, int downdist, int leftDist,
 			int rigthDist) {
@@ -129,69 +163,6 @@ public class Utils {
 		
 		return null;
 	}
-	// TODO: add restriction by timestamp
-	// TODO: SELECT Lang,AVG(Dist) FROM Babble GROUP BY Lang
-	public static Map<String, Double> getLangToDist(Context context) {
-		Map<String, Double> langToDist = new HashMap<String, Double>();
-		Map<String, Integer> langToCount = new HashMap<String, Integer>();
-		Cursor c = context.getContentResolver().query(
-				Phrase.Columns.CONTENT_URI,
-				new String[] { Phrase.Columns.LANG, Phrase.Columns.DIST },
-				null,
-				null,
-				null);
-		while (c.moveToNext()) {
-			String lang = c.getString(0);
-			Integer dist = c.getInt(1);
-			Double val = langToDist.get(lang);
-			if (val == null) {
-				val = (double) dist;
-				langToCount.put(lang, 1);
-			} else {
-				val += dist;
-				langToCount.put(lang, 1 + langToCount.get(lang));
-			}
-			langToDist.put(lang, val);
-		}
-		c.close();
-
-		for (String lang : langToDist.keySet()) {
-			double avg = langToDist.get(lang) / langToCount.get(lang);
-			langToDist.put(lang, avg);
-		}
-		return langToDist;
-	}
-
-
-	public static AlertDialog getOkDialog(final Context context, String msg) {
-		final SpannableString s = new SpannableString(msg);
-		Linkify.addLinks(s, Linkify.ALL);
-		return new AlertDialog.Builder(context)
-		.setPositiveButton(context.getString(R.string.buttonOk), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-			}
-		})
-		.setMessage(s)
-		.create();
-	}
-
-
-	public static AlertDialog getYesNoDialog(Context context, String confirmationMessage, final Executable ex) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder
-		.setMessage(confirmationMessage)
-		.setCancelable(false)
-		.setPositiveButton(context.getString(R.string.buttonYes), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				ex.execute();
-			}
-		})
-		.setNegativeButton(context.getString(R.string.buttonNo), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-			}
-		});
-		return builder.create();
-	}
 }
+
+

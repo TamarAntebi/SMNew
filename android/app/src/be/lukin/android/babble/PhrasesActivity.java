@@ -90,9 +90,9 @@ public class PhrasesActivity extends SubActivity {
 			sort(item, SORT_ORDER_DIST);
 			return true;
 		case R.id.menuLanguagesPlot:
-			LanguagesBarChart lbc = new LanguagesBarChart();
-			Intent intent = lbc.execute(this);
-			startActivity(intent);
+//			LanguagesBarChart lbc = new LanguagesBarChart();
+//			Intent intent = lbc.execute(this);
+//			startActivity(intent);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
