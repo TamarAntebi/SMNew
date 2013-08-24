@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="be.lukin.android.babble"
+    android:versionCode="208"
+    android:versionName="0.2.08" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/labelApp"
+        android:theme="@style/LightTheme" >
+        <activity
+            android:name=".BabbleActivity"
+            android:label="@string/labelApp" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PhrasesActivity"
+            android:label="@string/labelPhrases" >
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/labelSettings" >
+        </activity>
+        <activity
+            android:name="org.achartengine.GraphicalActivity"
+            android:label="@string/labelLanguagesPlot" />
+
+        <provider
+            android:name=".provider.BabbleContentProvider"
+            android:authorities="be.lukin.android.babble.provider.BabbleContentProvider"
+            android:exported="false" />
+    </application>
+
+</manifest>

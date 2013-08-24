@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="keyService" translatable="false">keyService</string>
+    <string name="keyLanguages" translatable="false">keyLanguages</string>
+    <string name="keyMaxOneResult" translatable="false">keyMaxOneResult</string>
+    <string name="keyDemoMode" translatable="false">keyDemoMode</string>
+    <string name="keyAudioCues" translatable="false">keyAudioCues</string>
+    <string name="urlVHackProject" translatable="false">http://vhackandroid.wikia.com/wiki/V_Hack_Android_Wiki</string>
+    <string name="urlBabbleProject" translatable="false">http://vhackandroid.wikia.com/wiki/Babble</string>
+    <string name="urlBabbleDownload" translatable="false">https://play.google.com/store/apps/details?id=be.lukin.android.babble</string>
+    <string name="labelApp">Babble</string>
+    <string name="prefCurrentSortOrder" translatable="false">prefCurrentSortOrder</string>
+    <string name="prefCurrentSortOrderMenu" translatable="false">prefCurrentSortOrderMenu</string>
+    <string name="prefRecognizerServiceCls" translatable="false">prefRecognizerServiceCls</string>
+    <string name="labelPhrases">Phrases</string>
+    <string name="labelLanguagesPlot">Average Levenshtein</string>
+    <string name="labelSettings">Settings</string>
+    <string name="error">Error</string>
+    <string name="errorResultAudioError">Audio recording failed. Maybe another app is currently recording.</string>
+    <string name="errorResultNetworkError">Something is wrong with the network</string>
+    <string name="errorResultClientError">General client error</string>
+    <string name="errorResultServerError">Recognizer server error</string>
+    <string name="errorResultNoMatch">No natural language phrase was heard. Please try again!</string>
+    <string name="errorCommandNotSupported">Command not supported</string>
+    <string name="errorIntentActivityNotPresent">There is no app to perform this task. Install it from Play Store first.</string>
+    <string name="errorNoDefaultRecognizer">Speech recognizer not installed or no default recognizer set</string>
+    <string name="errorTtsLangNotAvailable">TTS data unavailable for %1$s</string>
+    <string name="errorTtsInitError">TTS initialization failed</string>
+    <string name="menuMainSort">Sort …</string>
+    <string name="menuMainSortByTimestamp">by time</string>
+    <string name="menuMainSortByLang">by language</string>
+    <string name="menuMainSortByText">by text</string>
+    <string name="menuMainSortByDist">by edit distance</string>
+    <string name="menuMainPhrases">Phrases</string>
+    <string name="menuLanguagesPlot">Plot</string>
+    <string name="menuMainSettings">Settings</string>
+    <string name="cmMainDelete">Delete</string>
+    <string name="titleCategoryLinks">Links</string>
+    <string name="titleMaxOneResult">I feel lucky</string>
+    <string name="summaryMaxOneResult">Consider only the most probable recognition result</string>
+    <string name="titleDemoMode">Demo mode</string>
+    <string name="summaryDemoMode">Use the locally stored ~200 demo phrases only</string>
+    <string name="titleService">Speech recognizer</string>
+    <string name="dialogTitleService">Select speech recognizer</string>
+    <string name="titleLanguages">Languages</string>
+    <string name="dialogTitleLanguages">Select languages</string>
+    <string name="summaryLanguages">Select the languages that are used in the training</string>
+    <string name="titleAudioCues">Play audio cues</string>
+    <string name="summaryAudioCues">Beep before and after recording</string>
+    <string name="titleBabbleProject">project Babble</string>
+    <string name="summaryBabbleProject">(made this app in 48 hours in the beautiful Genk library)</string>
+    <string name="titleVHackProject">V Hack Android</string>
+    <string name="summaryVHackProject">V Hack Android Belgium 2012</string>
+    <string name="confirmDeleteEntry">Are you sure you want to delete entry \"%1$s\"?</string>
+    <string name="buttonMicrophoneContentDescription">Press this button to speak a phrase</string>
+    <string name="buttonYes">Yes</string>
+    <string name="buttonNo">No</string>
+    <string name="buttonOk">OK</string>
+    <string name="buttonCancel">Cancel</string>
+    <string name="buttonNever">Never</string>
+    <string name="buttonLater">Later</string>
+    <string name="stateInit">Ready to babble? Then press the big yellow button…</string>
+    <string name="emptylistPhrases">No phrases yet</string>
+    <string name="msgDist0">Perfect!</string>
+    <string name="msgDist10">Pretty good</string>
+    <string name="examplePhrase">How much wood would a woodchuck chuck if a woodchuck could chuck wood?</string>
+    <string name="defaultLang">English (en-US)</string>
+
+    <string-array name="entriesService" translatable="false"></string-array>
+    <string-array name="valuesService" translatable="false"></string-array>
+    <string-array name="entriesLanguages">
+        <item>Bulgarian</item>
+        <item>Catalan</item>
+        <item>Czech</item>
+        <item>German</item>
+        <item>English</item>
+        <item>Spanish</item>
+        <item>Estonian</item>
+        <item>Basque</item>
+        <item>Finnish</item>
+        <item>French</item>
+        <item>Hungarian</item>
+        <item>Islandic</item>
+        <item>Italian</item>
+        <item>Latin</item>
+        <item>Norwegian</item>
+        <item>Dutch</item>
+        <item>Polish</item>
+        <item>Portugese</item>
+        <item>Romanian</item>
+        <item>Russian</item>
+        <item>Slovak</item>
+        <item>Serbian</item>
+        <item>Swedish</item>
+        <item>Turkish</item>
+    </string-array>
+    <string-array name="valuesLanguages" translatable="false">
+        <item>bg</item>
+        <item>ca</item>
+        <item>cs</item>
+        <item>de</item>
+        <item>en</item>
+        <item>es</item>
+        <item>et</item>
+        <item>Euskara</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>hu</item>
+        <item>is</item>
+        <item>it</item>
+        <item>Latin</item>
+        <item>nb</item>
+        <item>nl</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>sk</item>
+        <item>sr</item>
+        <item>sv</item>
+        <item>tr</item>
+    </string-array>
+
+</resources>
