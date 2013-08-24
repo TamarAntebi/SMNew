@@ -56,17 +56,11 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private SpeechRecognizer mSr;
 
-	private LinearLayout mLlPhrase;
 	private LinearLayout mLlMicrophone;
-	private TextView mTvPhrase;
 	private TextView mTvResult;
 	private TextView mTvFeedback;
-	private TextView mTvLang;
 	private List<Sentence> mSentences;
 	private Sentence mCurrentSentence;
-
-	private static final Uri CONTENT_URI = Phrase.Columns.CONTENT_URI;
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -77,11 +71,8 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		mRes = getResources();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		mLlPhrase = (LinearLayout) findViewById(R.id.llPhrase);
-		mTvPhrase = (TextView) findViewById(R.id.tvPhrase);
 		mTvResult = (TextView) findViewById(R.id.tvResult);
 		mTvFeedback = (TextView) findViewById(R.id.tvFeedback);
-		mTvLang = (TextView) findViewById(R.id.tvLang);
 		mLlMicrophone = (LinearLayout) findViewById(R.id.llMicrophone);
 		mButtonMicrophone = (MicButton) findViewById(R.id.buttonMicrophone);
 
@@ -89,7 +80,6 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		//mActionBar.setHomeButtonEnabled(false);
 
 		// When the activity is started nothing is displayed
-		mLlPhrase.setVisibility(View.VISIBLE);
 		mLlMicrophone.setVisibility(View.VISIBLE);
 		mTvResult.setText("");
 		mTvFeedback.setVisibility(View.VISIBLE);
@@ -167,17 +157,8 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menuMainPhrases:
-			startActivity(new Intent(this, PhrasesActivity.class));
-			return true;
-		case R.id.menuLanguagesPlot:
-//			LanguagesBarChart lbc = new LanguagesBarChart();
-//			Intent intent = lbc.execute(this);
-//			startActivity(intent);
-			return true;
-		case R.id.menuMainSettings:
-			startActivity(new Intent(this, SettingsActivity.class));
-			return true;
+
+	
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -211,17 +192,17 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			}
 		});
 
-		mLlPhrase.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				if (mState == State.INIT || mState == State.ERROR) {
-					if (mCurrentSentence != null) {
-						listenSentence(sr, mCurrentSentence, false);
-					}
-				} else if (mState == State.LISTENING) {
-					sr.stopListening();
-				}
-			}
-		});
+//		mLlPhrase.setOnClickListener(new View.OnClickListener() {
+//			public void onClick(View v) {
+//				if (mState == State.INIT || mState == State.ERROR) {
+//					if (mCurrentSentence != null) {
+//						listenSentence(sr, mCurrentSentence, false);
+//					}
+//				} else if (mState == State.LISTENING) {
+//					sr.stopListening();
+//				}
+//			}
+//		});
 	}
 
 
@@ -261,18 +242,18 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	}
 
 
-	private void addEntry(String text, String lang, int dist, String result) {
-		Time now = new Time();
-		now.setToNow();
-		long timestamp = now.toMillis(false);
-		ContentValues values = new ContentValues();
-		values.put(Phrase.Columns.TIMESTAMP, timestamp);
-		values.put(Phrase.Columns.TEXT, text);
-		values.put(Phrase.Columns.LANG, lang);
-		values.put(Phrase.Columns.DIST, dist);
-		values.put(Phrase.Columns.RESULT, result);
-		insert(CONTENT_URI, values);
-	}
+//	private void addEntry(String text, String lang, int dist, String result) {
+//		Time now = new Time();
+//		now.setToNow();
+//		long timestamp = now.toMillis(false);
+//		ContentValues values = new ContentValues();
+//		values.put(Phrase.Columns.TIMESTAMP, timestamp);
+//		values.put(Phrase.Columns.TEXT, text);
+//		values.put(Phrase.Columns.LANG, lang);
+//		values.put(Phrase.Columns.DIST, dist);
+//		values.put(Phrase.Columns.RESULT, result);
+//		insert(CONTENT_URI, values);
+//	}
 
 
 	private Sentence getSentence() {
@@ -289,19 +270,19 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 
 	private void setUiInput(Sentence sent) {
-		mTvPhrase.setText(sent.getValue());
-		mTvLang.setText(langLabel(sent.getLocale()));
-		mLlPhrase.setVisibility(View.VISIBLE);
+//		mTvPhrase.setText(sent.getValue());
+//		mTvLang.setText(langLabel(sent.getLocale()));
+//		mLlPhrase.setVisibility(View.VISIBLE);
 		mTvResult.setText("");
 		mTvFeedback.setVisibility(View.VISIBLE);
 	}
 
-
-	private void setUiResult(String langCode, String resultText, int dist) {
-		mTvResult.setText(resultText);
-		mTvFeedback.setText(getDistText(dist, langCode));
-		mTvFeedback.setVisibility(View.VISIBLE);
-	}
+//
+//	private void setUiResult(String langCode, String resultText, int dist) {
+//		mTvResult.setText(resultText);
+//		mTvFeedback.setText(getDistText(dist, langCode));
+//		mTvFeedback.setVisibility(View.VISIBLE);
+//	}
 
 
 	private void setErrorMessage(int res) {
@@ -314,28 +295,28 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		mTvResult.setText(TextUtils.join(" · ", results));
 	}
 
+//
+//	private String getDistText(int dist, String langCode) {
+//		if (dist == 0) {
+//			return getString(R.string.msgDist0);
+//		}
+//		if (dist < 10) {
+//			return getString(R.string.msgDist10);
+//		}
+//		return "Sorry, no speaker of " + langLabel(langCode) + " would understand you!";
+//	}
 
-	private String getDistText(int dist, String langCode) {
-		if (dist == 0) {
-			return getString(R.string.msgDist0);
-		}
-		if (dist < 10) {
-			return getString(R.string.msgDist10);
-		}
-		return "Sorry, no speaker of " + langLabel(langCode) + " would understand you!";
-	}
 
-
-	private String langLabel(String langCode) {
-		Locale l = new Locale(langCode);
-		return l.getDisplayName(l) + " (" + langCode + ")";
-	}
+//	private String langLabel(String langCode) {
+//		Locale l = new Locale(langCode);
+//		return l.getDisplayName(l) + " (" + langCode + ")";
+//	}
 
 
 	private void startListening(final SpeechRecognizer sr, String phrase, String lang, final boolean isStorePhrase) {
-
-		final String mPhrase = phrase;
-		final String mLang = lang;
+//
+//		final String mPhrase = phrase;
+//		final String mLang = lang;
 		Intent intentRecognizer = createRecognizerIntent(phrase, lang);
 
 		final Runnable stopListening = new Runnable() {

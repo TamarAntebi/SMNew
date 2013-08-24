@@ -140,7 +140,7 @@ public class Utils {
 			if (i > 0){
 				costsR[right.length()] = lastValueR;}
 			if(costsR[right.length()] ==0){
-				return "left";
+				return "right";
 			}
 		}
 		return min(costsUp[up.length()],costsD[down.length()],costsL[left.length()],costsR[right.length()]);

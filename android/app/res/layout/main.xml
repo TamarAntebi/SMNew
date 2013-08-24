@@ -4,36 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/llPhrase"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_phrase"
-        android:orientation="vertical"
-        android:padding="4dp" >
-
-        <TextView
-            android:id="@+id/tvPhrase"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="6dp"
-            android:text="@string/examplePhrase"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/textSizeMainPhrase" />
-
-        <TextView
-            android:id="@+id/tvLang"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="6dp"
-            android:text="@string/defaultLang"
-            android:textColor="@color/grey3"
-            android:textSize="@dimen/textSizeMainLang" />
-    </LinearLayout>
+   
 
     <TextView
         android:id="@+id/tvResult"

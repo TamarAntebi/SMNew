@@ -83,11 +83,11 @@ public class MicButton extends ImageButton {
 
 
 	public void fadeIn() {
-		Animations.startFadeAnimation(mAnimFadeIn, this, View.VISIBLE);
+//		Animations.startFadeAnimation(mAnimFadeIn, this, View.VISIBLE);
 	}
 
 	public void fadeOut() {
-		Animations.startFadeAnimation(mAnimFadeOut, this, View.INVISIBLE);
+//		Animations.startFadeAnimation(mAnimFadeOut, this, View.INVISIBLE);
 	}
 
 
