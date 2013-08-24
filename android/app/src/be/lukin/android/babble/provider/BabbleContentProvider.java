@@ -2,7 +2,6 @@ package be.lukin.android.babble.provider;
 
 import java.util.HashMap;
 
-import be.lukin.android.babble.Log;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -59,7 +58,6 @@ public class BabbleContentProvider extends ContentProvider {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.i("Upgrading database v" + oldVersion + " -> v" + newVersion + ", which will destroy all old data.");
 			db.execSQL("DROP TABLE IF EXISTS " + PHRASE_TABLE_NAME);
 			onCreate(db);
 		}

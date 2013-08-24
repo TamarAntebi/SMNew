@@ -91,14 +91,14 @@ public class SettingsActivity extends SubActivity implements OnSharedPreferenceC
 		for (ResolveInfo ri : services) {
 			ServiceInfo si = ri.serviceInfo;
 			if (si == null) {
-				Log.i("serviceInfo == null");
+//				Log.i("serviceInfo == null");
 				continue;
 			}
 			String pkg = si.packageName;
 			String cls = si.name;
 			CharSequence label = si.loadLabel(pm);
 			mPkgToCls.put(pkg, cls);
-			Log.i(pkg + " :: " + label + " :: " + mPkgToCls.get(pkg));
+//			Log.i(pkg + " :: " + label + " :: " + mPkgToCls.get(pkg));
 			entries[index] = label;
 			entryValues[index] = pkg;
 			if (pkg.equals(selectedService)) {

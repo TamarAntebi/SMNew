@@ -28,7 +28,7 @@ public class LanguagesBarChart extends AbstractChart {
 
 	public Intent execute(Context context) {
 		Map<String, Double> map = Utils.getLangToDist(context);
-		Log.i(map.toString());
+//		Log.i(map.toString());
 
 		String[] titles = new String[] { "average edit distance" };
 

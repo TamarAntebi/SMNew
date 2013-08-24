@@ -52,7 +52,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private MicButton mButtonMicrophone;
 
-	private AudioCue mAudioCue;
+//	private AudioCue mAudioCue;
 
 	private SpeechRecognizer mSr;
 
@@ -70,7 +70,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.i("onCreate");
+//		Log.i("onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -105,12 +105,12 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-
-		if (mPrefs.getBoolean(getString(R.string.keyAudioCues), mRes.getBoolean(R.bool.defaultAudioCues))) {
-			mAudioCue = new AudioCue(this);
-		} else {
-			mAudioCue = null;
-		}
+//
+//		if (mPrefs.getBoolean(getString(R.string.keyAudioCues), mRes.getBoolean(R.bool.defaultAudioCues))) {
+//			mAudioCue = new AudioCue(this);
+//		} else {
+//			mAudioCue = null;
+//		}
 
 		ComponentName serviceComponent = getServiceComponent();
 
@@ -118,7 +118,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			toast(getString(R.string.errorNoDefaultRecognizer));
 			//TODO: goToStore();
 		} else {
-			Log.i("Starting service: " + serviceComponent);
+//			Log.i("Starting service: " + serviceComponent);
 			mSr = SpeechRecognizer.createSpeechRecognizer(this, serviceComponent);
 			if (mSr == null) {
 				toast(getString(R.string.errorNoDefaultRecognizer));
@@ -227,9 +227,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 	private void listenSentence(SpeechRecognizer sr, Sentence sent, boolean isStorePhrase) {
 		setUiInput(sent);
-		if (mAudioCue != null) {
-			mAudioCue.playStartSoundAndSleep();
-		}
+//		if (mAudioCue != null) {
+//			mAudioCue.playStartSoundAndSleep();
+//		}
 		startListening(sr, sent.getValue(), sent.getLocale(), isStorePhrase);
 	}
 
@@ -350,7 +350,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 			@Override
 			public void onBeginningOfSpeech() {
-				Log.i("onBeginningOfSpeech");
+//				Log.i("onBeginningOfSpeech");
 				mState = State.LISTENING;
 			}
 
@@ -365,9 +365,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 				mState = State.TRANSCRIBING;
 				handler.removeCallbacks(stopListening);
 				mButtonMicrophone.setState(mState);
-				if (mAudioCue != null) {
-					mAudioCue.playStopSound();
-				}
+//				if (mAudioCue != null) {
+//					mAudioCue.playStopSound();
+//				}
 			}
 
 			@Override
@@ -375,9 +375,9 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 				mState = State.ERROR;
 				handler.removeCallbacks(stopListening);
 				mButtonMicrophone.setState(mState);
-				if (mAudioCue != null) {
-					mAudioCue.playErrorSound();
-				}
+//				if (mAudioCue != null) {
+//					mAudioCue.playErrorSound();
+//				}
 				switch (error) {
 				case SpeechRecognizer.ERROR_AUDIO:
 					setErrorMessage(R.string.errorResultAudioError);
@@ -413,7 +413,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 
 			@Override
 			public void onEvent(int eventType, Bundle params) {
-				Log.i("onEvent: " + eventType + " " + params);
+//				L?og.i("onEvent: " + eventType + " " + params);
 				// TODO: no recognizer service seems to call this
 			}
 
@@ -421,7 +421,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 			public void onPartialResults(Bundle partialResults) {
 				// This is supported (only?) by Google Voice Search.
 				// The following is Google-specific.
-				Log.i("onPartialResults: keySet: " + partialResults.keySet());
+//				Log.i("onPartialResults: keySet: " + partialResults.keySet());
 				String[] results = partialResults.getStringArray("com.google.android.voicesearch.UNSUPPORTED_PARTIAL_RESULTS");
 				//double[] resultsConfidence = partialResults.getDoubleArray("com.google.android.voicesearch.UNSUPPORTED_PARTIAL_RESULTS_CONFIDENCE");
 				if (results != null) {
@@ -482,7 +482,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		}
 
 		protected void onPostExecute(List<Sentence> result) {
-			Log.i("DownloadSentencesTask: onPostExecute");
+//			Log.i("DownloadSentencesTask: onPostExecute");
 			mSentences = result;
 			mLlMicrophone.setVisibility(View.VISIBLE);
 			mLlMicrophone.setEnabled(true);

@@ -131,7 +131,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 		Cursor cursor = (Cursor) getListView().getItemAtPosition(position);
 		String text = cursor.getString(cursor.getColumnIndex(Phrase.Columns.TEXT));
 		String lang = cursor.getString(cursor.getColumnIndex(Phrase.Columns.LANG));
-		Log.i("Item clicked: " + text);
+//		Log.i("Item clicked: " + text);
 		say(text, lang);
 	}
 
@@ -186,7 +186,7 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 				tts.setOnUtteranceCompletedListener(new TextToSpeech.OnUtteranceCompletedListener() {
 					@Override
 					public void onUtteranceCompleted(String utteranceId) {
-						Log.i("onUtteranceCompleted: " + utteranceId);
+//						Log.i("onUtteranceCompleted: " + utteranceId);
 						if (utteranceId.equals(UTT_COMPLETED_FEEDBACK)) {
 							// TODO: maybe do something
 						}
@@ -204,11 +204,11 @@ public class CursorLoaderListFragment extends ListFragment implements OnQueryTex
 
 
 	private static boolean setTtsLang(TextToSpeech tts, String localeAsStr) {
-		Log.i("Default TTS engine:" + tts.getDefaultEngine());
+//		Log.i("Default TTS engine:" + tts.getDefaultEngine());
 		Locale locale = new Locale(localeAsStr);
 		if (tts.isLanguageAvailable(locale) >= 0) {
 			tts.setLanguage(locale);
-			Log.i("Set TTS to locale: " + locale);
+//			Log.i("Set TTS to locale: " + locale);
 			return true;
 		}
 		return false;

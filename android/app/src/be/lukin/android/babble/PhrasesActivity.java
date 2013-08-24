@@ -109,7 +109,7 @@ public class PhrasesActivity extends SubActivity {
 						if (status == TextToSpeech.SUCCESS) {
 						} else {
 							// TODO: inform the user about the TTS problem
-							Log.e(getString(R.string.errorTtsInitError));
+//							Log.e(getString(R.string.errorTtsInitError));
 						}
 					}
 				});
