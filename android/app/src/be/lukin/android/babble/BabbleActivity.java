@@ -89,10 +89,10 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		//mActionBar.setHomeButtonEnabled(false);
 
 		// When the activity is started nothing is displayed
-		mLlPhrase.setVisibility(View.INVISIBLE);
-		mLlMicrophone.setVisibility(View.INVISIBLE);
+		mLlPhrase.setVisibility(View.VISIBLE);
+		mLlMicrophone.setVisibility(View.VISIBLE);
 		mTvResult.setText("");
-		mTvFeedback.setVisibility(View.INVISIBLE);
+		mTvFeedback.setVisibility(View.VISIBLE);
 
 		new DownloadSentencesTask().execute();
 	}
@@ -293,7 +293,7 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		mTvLang.setText(langLabel(sent.getLocale()));
 		mLlPhrase.setVisibility(View.VISIBLE);
 		mTvResult.setText("");
-		mTvFeedback.setVisibility(View.INVISIBLE);
+		mTvFeedback.setVisibility(View.VISIBLE);
 	}
 
 
@@ -436,25 +436,51 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 				handler.postDelayed(stopListening, LISTENING_TIMEOUT);
 			}
 
+			
+			
 			@Override
 			public void onResults(Bundle results) {
 				handler.removeCallbacks(stopListening);
 				ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 				mState = State.INIT;
-				mButtonMicrophone.setState(mState);
 				if (matches.isEmpty()) {
 					toast("ERROR: No results"); // TODO
 				} else {
 					// TODO: we just take the first result for the time being
 					// TODO: confidence scores support is in API 14
 					String result = matches.iterator().next();
-					int dist = Utils.phraseDistance(mPhrase, result);
-					setUiResult(mLang, result, dist);
-					if (isStorePhrase) {
-						addEntry(mPhrase, mLang, dist, result);
+					int Updist = Utils.phraseDistance("up", result);
+					int Downdist = Utils.phraseDistance("down", result);
+					int leftDist= Utils.phraseDistance("left", result);
+					int RigthDist=Utils.phraseDistance("right", result);
+					String dir=min(Updist,Downdist,leftDist, RigthDist);
+					if (dir==null){
+						dir=String.valueOf(Updist)+String.valueOf("/"+Downdist)+String.valueOf("/"+leftDist)+String.valueOf("/"+RigthDist);
 					}
+					mTvFeedback.setText( "going "+dir);
+					mTvFeedback.setVisibility(View.VISIBLE);
 				}
 			}
+			
+//			@Override
+//			public void onResults(Bundle results) {
+//				handler.removeCallbacks(stopListening);
+//				ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+//				mState = State.INIT;
+//				mButtonMicrophone.setState(mState);
+//				if (matches.isEmpty()) {
+//					toast("ERROR: No results"); // TODO
+//				} else {
+//					// TODO: we just take the first result for the time being
+//					// TODO: confidence scores support is in API 14
+//					String result = matches.iterator().next();
+//					int dist = Utils.phraseDistance(mPhrase, result);
+//					setUiResult(mLang, result, dist);
+//					if (isStorePhrase) {
+//						addEntry(mPhrase, mLang, dist, result);
+//					}
+//				}
+//			}
 
 			@Override
 			public void onRmsChanged(float rmsdB) {
@@ -464,7 +490,26 @@ public class BabbleActivity extends AbstractRecognizerActivity {
 		sr.startListening(intentRecognizer);
 	}
 
+	
 
+	private String min(int updist, int downdist, int leftDist,
+			int rigthDist) {
+		if(updist<downdist&& updist<leftDist&& updist< rigthDist&& updist<4){
+			return "up";
+		}
+		if(downdist<updist&& downdist<leftDist&& downdist< rigthDist&& downdist<4){
+			return "down";
+		}
+		if(leftDist<downdist&& leftDist<updist&& leftDist< rigthDist&& leftDist<4){
+			return "left";
+		}
+		if(rigthDist<downdist&& rigthDist<leftDist&& rigthDist< updist&& rigthDist<4){
+			return "right";
+		}
+		
+		
+		return null;
+	}
 	private class DownloadSentencesTask extends AsyncTask<Void, Integer, List<Sentence>> {
 		protected List<Sentence> doInBackground(Void... arg0) {
 			if (mPrefs.getBoolean(getString(R.string.keyDemoMode), mRes.getBoolean(R.bool.defaultDemoMode))) {
